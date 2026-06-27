@@ -3,28 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manga Character Finder</title>
+    <title>Manga Nexus | Character Finder</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="cyber-bg">
+        <div class="scanlines"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
     <div class="container">
-        <h1>Rechercher un personnage de manga</h1>
-        <div class="search-box">
-            <input type="text" id="characterInput" placeholder="Ex: Naruto, Goku, Light Yagami...">
-            <button onclick="searchCharacter()">Rechercher</button>
+        <header>
+            <h1 class="neon-title">MANGA <span class="glitch">NEXUS</span></h1>
+            <p class="subtitle">Explorez l'univers des personnages légendaires</p>
+        </header>
+
+        <div class="search-container glass-card">
+            <input type="text" id="characterInput" class="cyber-input" placeholder="Entrez un nom... (ex: Goku, Naruto)">
+            <button onclick="searchCharacter()" class="neon-btn">
+                <span class="btn-text">RECHERCHER</span>
+                <span class="btn-glitch"></span>
+            </button>
         </div>
-        <div id="loading" class="hidden">Chargement...</div>
-        <div id="error" class="hidden error"></div>
-        <div id="result" class="hidden result">
-            <div class="character-card">
-                <img id="characterImage" src="" alt="Photo du personnage">
-                <div class="character-info">
-                    <h2 id="characterName"></h2>
-                    <p id="characterAbout"></p>
+
+        <div id="loading" class="hidden loading-spinner">
+            <div class="spinner"></div>
+            <p>Chargement des données...</p>
+        </div>
+
+        <div id="error" class="hidden error-message glass-card">
+            <p></p>
+        </div>
+
+        <div id="result" class="hidden result-container">
+            <div class="character-display">
+                <!-- Carte 3D à gauche -->
+                <div class="character-card-3d">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="card-image-container">
+                                <img id="characterImage" src="" alt="Personnage">
+                                <div class="card-glow"></div>
+                            </div>
+                            <div class="card-stats">
+                                <div class="stat-bar">
+                                    <span>Niveau</span>
+                                    <div class="bar"><div class="bar-fill" style="width: 85%"></div></div>
+                                </div>
+                                <div class="stat-bar">
+                                    <span>Popularité</span>
+                                    <div class="bar"><div class="bar-fill" style="width: 92%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="hologram-effect"></div>
+                            <p class="card-back-text">SCAN EN COURS...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Infos à droite -->
+                <div class="character-info glass-card">
+                    <div class="info-header">
+                        <h2 id="characterName" class="neon-subtitle"></h2>
+                        <div class="character-tags">
+                            <span class="tag">Anime</span>
+                            <span class="tag">Manga</span>
+                        </div>
+                    </div>
+                    <div class="info-body">
+                        <div class="info-section">
+                            <h3><span class="icon">📜</span> HISTOIRE</h3>
+                            <p id="characterStory"></p>
+                        </div>
+                        <div class="info-section">
+                            <h3><span class="icon">⚡</span> POUVOIRS</h3>
+                            <p id="characterAbilities">Analyse en cours...</p>
+                        </div>
+                        <div class="info-section">
+                            <h3><span class="icon">🌍</span> UNIVERS</h3>
+                            <p id="characterUniverse">Mise à jour...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

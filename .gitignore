@@ -13,3 +13,12 @@ dist/
 # Ignorer les fichiers temporaires
 *.tmp
 *.swp
+
+# Ignorer les fichiers IDE
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Ignorer les fichiers de cache
+.cache/
