@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manga Character Finder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Rechercher un personnage de manga</h1>
+        <div class="search-box">
+            <input type="text" id="characterInput" placeholder="Ex: Naruto, Goku, Light Yagami...">
+            <button onclick="searchCharacter()">Rechercher</button>
+        </div>
+        <div id="loading" class="hidden">Chargement...</div>
+        <div id="error" class="hidden error"></div>
+        <div id="result" class="hidden result">
+            <div class="character-card">
+                <img id="characterImage" src="" alt="Photo du personnage">
+                <div class="character-info">
+                    <h2 id="characterName"></h2>
+                    <p id="characterAbout"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
