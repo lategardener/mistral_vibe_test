@@ -6,91 +6,127 @@
     <title>Manga Nexus | Character Finder</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Fond Cyberpunk -->
     <div class="cyber-bg">
         <div class="scanlines"></div>
         <div class="grid-overlay"></div>
+        <div class="floating-particles" id="particles"></div>
     </div>
 
-    <div class="container">
-        <header>
+    <!-- Conteneur principal -->
+    <div class="main-container">
+        <!-- En-tête -->
+        <header class="header glass-card">
             <h1 class="neon-title">MANGA <span class="glitch">NEXUS</span></h1>
             <p class="subtitle">Explorez l'univers des personnages légendaires</p>
+            <div class="search-container">
+                <input type="text" id="characterInput" class="cyber-input" placeholder="Entrez un nom... (ex: Goku, Naruto)">
+                <button onclick="searchCharacter()" class="neon-btn">
+                    <span class="btn-text"><i class="fas fa-search"></i> RECHERCHER</span>
+                    <span class="btn-glitch"></span>
+                </button>
+            </div>
         </header>
 
-        <div class="search-container glass-card">
-            <input type="text" id="characterInput" class="cyber-input" placeholder="Entrez un nom... (ex: Goku, Naruto)">
-            <button onclick="searchCharacter()" class="neon-btn">
-                <span class="btn-text">RECHERCHER</span>
-                <span class="btn-glitch"></span>
+        <!-- Section de chargement -->
+        <div id="loading" class="hidden loading-section">
+            <div class="loading-content glass-card">
+                <div class="spinner"></div>
+                <p>Recherche de <span id="loadingCharacterName">...</span> en cours...</p>
+                <div class="loading-bar">
+                    <div class="loading-bar-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section d'erreur -->
+        <div id="error" class="hidden error-section glass-card">
+            <i class="fas fa-exclamation-triangle error-icon"></i>
+            <p id="errorMessage"></p>
+            <button onclick="hideError()" class="neon-btn error-btn">
+                <span class="btn-text">OK</span>
             </button>
         </div>
 
-        <div id="loading" class="hidden loading-spinner">
-            <div class="spinner"></div>
-            <p>Chargement des données...</p>
-        </div>
+        <!-- Section de résultat -->
+        <div id="result" class="hidden result-section">
+            <!-- Image du personnage (centrée) -->
+            <div class="character-image-container">
+                <div class="image-wrapper">
+                    <img id="characterImage" src="" alt="Personnage" class="character-image">
+                    <div class="image-glow"></div>
+                    <div class="image-border"></div>
+                </div>
+                <h2 id="characterName" class="character-name neon-title"></h2>
+            </div>
 
-        <div id="error" class="hidden error-message glass-card">
-            <p></p>
-        </div>
-
-        <div id="result" class="hidden result-container">
-            <div class="character-display">
-                <!-- Carte 3D à gauche -->
-                <div class="character-card-3d">
-                    <div class="card-inner">
-                        <div class="card-front">
-                            <div class="card-image-container">
-                                <img id="characterImage" src="" alt="Personnage">
-                                <div class="card-glow"></div>
-                            </div>
-                            <div class="card-stats">
-                                <div class="stat-bar">
-                                    <span>Niveau</span>
-                                    <div class="bar"><div class="bar-fill" style="width: 85%"></div></div>
-                                </div>
-                                <div class="stat-bar">
-                                    <span>Popularité</span>
-                                    <div class="bar"><div class="bar-fill" style="width: 92%"></div></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-back">
-                            <div class="hologram-effect"></div>
-                            <p class="card-back-text">SCAN EN COURS...</p>
-                        </div>
+            <!-- Containers scrollables -->
+            <div class="scroll-containers">
+                <!-- Container 1: Histoire -->
+                <div class="info-container glass-card" data-container="history">
+                    <div class="container-header">
+                        <i class="fas fa-book container-icon"></i>
+                        <h3>HISTOIRE</h3>
+                    </div>
+                    <div class="container-content">
+                        <p id="characterHistory"></p>
                     </div>
                 </div>
 
-                <!-- Infos à droite -->
-                <div class="character-info glass-card">
-                    <div class="info-header">
-                        <h2 id="characterName" class="neon-subtitle"></h2>
-                        <div class="character-tags">
-                            <span class="tag">Anime</span>
-                            <span class="tag">Manga</span>
-                        </div>
+                <!-- Container 2: Pouvoirs -->
+                <div class="info-container glass-card" data-container="abilities">
+                    <div class="container-header">
+                        <i class="fas fa-bolt container-icon"></i>
+                        <h3>POUVOIRS & CAPACITÉS</h3>
                     </div>
-                    <div class="info-body">
-                        <div class="info-section">
-                            <h3><span class="icon">📜</span> HISTOIRE</h3>
-                            <p id="characterStory"></p>
-                        </div>
-                        <div class="info-section">
-                            <h3><span class="icon">⚡</span> POUVOIRS</h3>
-                            <p id="characterAbilities">Analyse en cours...</p>
-                        </div>
-                        <div class="info-section">
-                            <h3><span class="icon">🌍</span> UNIVERS</h3>
-                            <p id="characterUniverse">Mise à jour...</p>
-                        </div>
+                    <div class="container-content">
+                        <div id="characterAbilities" class="abilities-grid"></div>
+                    </div>
+                </div>
+
+                <!-- Container 3: Univers -->
+                <div class="info-container glass-card" data-container="universe">
+                    <div class="container-header">
+                        <i class="fas fa-globe container-icon"></i>
+                        <h3>UNIVERS</h3>
+                    </div>
+                    <div class="container-content">
+                        <p id="characterUniverse"></p>
+                    </div>
+                </div>
+
+                <!-- Container 4: Apparitions -->
+                <div class="info-container glass-card" data-container="appearances">
+                    <div class="container-header">
+                        <i class="fas fa-film container-icon"></i>
+                        <h3>APPARITIONS</h3>
+                    </div>
+                    <div class="container-content">
+                        <div id="characterAppearances" class="appearances-list"></div>
+                    </div>
+                </div>
+
+                <!-- Container 5: Anecdotes -->
+                <div class="info-container glass-card" data-container="funfacts">
+                    <div class="container-header">
+                        <i class="fas fa-lightbulb container-icon"></i>
+                        <h3>ANECDOTES</h3>
+                    </div>
+                    <div class="container-content">
+                        <div id="characterFunFacts" class="funfacts-list"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Bouton de retour en haut -->
+    <button id="scrollToTop" class="scroll-to-top neon-btn">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script src="script.js"></script>
 </body>
