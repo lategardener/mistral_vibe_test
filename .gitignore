@@ -1,0 +1,15 @@
+# Ignorer les fichiers de dépendances et logs
+node_modules/
+npm-debug.log*
+
+# Ignorer les fichiers de configuration locale
+.env
+.env.local
+
+# Ignorer les fichiers de build (si applicable)
+build/
+dist/
+
+# Ignorer les fichiers temporaires
+*.tmp
+*.swp
