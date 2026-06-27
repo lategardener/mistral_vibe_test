@@ -20,16 +20,34 @@
     <div class="main-container">
         <!-- En-tête -->
         <header class="header glass-card">
+            <div class="header-controls">
+                <button id="themeToggle" class="theme-btn neon-btn-small" title="Changer de thème">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="favoritesToggle" class="favorites-btn neon-btn-small" title="Mes favoris">
+                    <i class="fas fa-heart"></i>
+                    <span id="favoritesCount" class="fav-count">0</span>
+                </button>
+            </div>
             <h1 class="neon-title">MANGA <span class="glitch">NEXUS</span></h1>
             <p class="subtitle">Explorez l'univers des personnages légendaires</p>
             <div class="search-container">
-                <input type="text" id="characterInput" class="cyber-input" placeholder="Entrez un nom... (ex: Goku, Naruto)">
+                <input type="text" id="characterInput" class="cyber-input" placeholder="Entrez un nom... (ex: Goku, Naruto)" autocomplete="off">
                 <button onclick="searchCharacter()" class="neon-btn">
                     <span class="btn-text"><i class="fas fa-search"></i> RECHERCHER</span>
                     <span class="btn-glitch"></span>
                 </button>
             </div>
         </header>
+
+        <!-- Section Favoris (cachée par défaut) -->
+        <div id="favoritesSection" class="hidden favorites-section">
+            <div class="favorites-header glass-card">
+                <h2><i class="fas fa-heart"></i> MES PERSONNAGES FAVORIS</h2>
+                <button onclick="toggleFavorites()" class="close-favorites"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="favoritesGrid" class="favorites-grid glass-card"></div>
+        </div>
 
         <!-- Section de chargement -->
         <div id="loading" class="hidden loading-section">
@@ -59,6 +77,9 @@
                     <img id="characterImage" src="" alt="Personnage" class="character-image">
                     <div class="image-glow"></div>
                     <div class="image-border"></div>
+                    <button id="addToFavorites" class="favorite-btn" title="Ajouter aux favoris">
+                        <i class="fas fa-heart"></i>
+                    </button>
                 </div>
                 <h2 id="characterName" class="character-name neon-title"></h2>
             </div>
@@ -127,6 +148,13 @@
     <button id="scrollToTop" class="scroll-to-top neon-btn">
         <i class="fas fa-arrow-up"></i>
     </button>
+
+    <!-- Audio elements pour les effets sonores -->
+    <audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3" preload="auto"></audio>
+    <audio id="searchSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" preload="auto"></audio>
+    <audio id="errorSound" src="https://assets.mixkit.co/sfx/preview/mixkit-losing-bleeps-2026.mp3" preload="auto"></audio>
+    <audio id="successSound" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" preload="auto"></audio>
+    <audio id="favoriteSound" src="https://assets.mixkit.co/sfx/preview/mixkit-heart-beat-255.mp3" preload="auto"></audio>
 
     <script src="script.js"></script>
 </body>
